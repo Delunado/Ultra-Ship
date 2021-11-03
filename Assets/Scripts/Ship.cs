@@ -10,12 +10,19 @@ public class Ship : MonoBehaviour
     private Transform _transform;
     private Camera _camera;
 
+    private IInput _input;
+
     private void Awake()
     {
         _camera = Camera.main;
         _transform = transform;
     }
 
+    public void Configure(IInput input)
+    {
+        _input = input;
+    }
+    
     void Update()
     {
         Vector2 direction = GetDirection();
@@ -39,8 +46,6 @@ public class Ship : MonoBehaviour
 
     private Vector2 GetDirection()
     {
-        float horDir = Input.GetAxis("Horizontal");
-        float verDir = Input.GetAxis("Vertical");
-        return new Vector2(horDir, verDir);
+        return _input.GetDirection();
     }
 }
