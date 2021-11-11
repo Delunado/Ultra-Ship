@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PCInput : IInput
+public class PCInputAdapter : IInput
 {
     public Vector2 GetDirection()
     {

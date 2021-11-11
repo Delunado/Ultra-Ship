@@ -11,6 +11,7 @@ public class Ship : MonoBehaviour
     private Camera _camera;
 
     private IInput _input;
+    private ICheckLimits _limits;
 
     private void Awake()
     {
@@ -18,8 +19,9 @@ public class Ship : MonoBehaviour
         _transform = transform;
     }
 
-    public void Configure(IInput input)
+    public void Configure(IInput input, ICheckLimits limits)
     {
+        _limits = limits;
         _input = input;
     }
     
@@ -38,10 +40,7 @@ public class Ship : MonoBehaviour
     //Limits the World position using the Viewport position
     private void ClampWorldPosition()
     {
-        Vector3 viewportPoint = _camera.WorldToViewportPoint(_transform.position);
-        viewportPoint.x = Mathf.Clamp(viewportPoint.x, 0.03f, 0.97f);
-        viewportPoint.y = Mathf.Clamp(viewportPoint.y, 0.03f, 0.97f);
-        _transform.position = _camera.ViewportToWorldPoint(viewportPoint);
+        _limits.ClampPosition();
     }
 
     private Vector2 GetDirection()
