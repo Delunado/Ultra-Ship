@@ -10,4 +10,9 @@ public class PCInputAdapter : IInput
         float verDir = Input.GetAxis("Vertical");
         return new Vector2(horDir, verDir);
     }
+
+    public bool IsFireActionPressed()
+    {
+        return Input.GetButtonDown("Fire1");
+    }
 }
