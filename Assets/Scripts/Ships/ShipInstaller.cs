@@ -5,18 +5,18 @@ using UnityEngine;
 
 public class ShipInstaller : MonoBehaviour
 {
-    private Ship _ship;
+    private ShipMediator _shipMediator;
 
     [SerializeField] private bool useIA;
     [SerializeField] private bool checkLimitsFromPosition;
 
     private void Awake()
     {
-        _ship = FindObjectOfType<Ship>();
+        _shipMediator = FindObjectOfType<ShipMediator>();
 
-        if (_ship != null)
+        if (_shipMediator != null)
         {
-            _ship.Configure(GetInput(), GetCheckLimitsStrategy());
+            _shipMediator.Configure(GetInput(), GetCheckLimitsStrategy());
         }
         else
         {
@@ -27,7 +27,7 @@ public class ShipInstaller : MonoBehaviour
     private IInput GetInput()
     {
         if (useIA)
-            return new IAInputAdapter(_ship);
+            return new IAInputAdapter(_shipMediator);
         
         return new PCInputAdapter();
     }
@@ -36,9 +36,9 @@ public class ShipInstaller : MonoBehaviour
     {
         if (checkLimitsFromPosition)
         {
-            return new InitialPositionCheckLimits(_ship.transform, 7.0f);
+            return new InitialPositionCheckLimits(_shipMediator.transform, 7.0f);
         }
         
-        return new ViewportCheckLimits(Camera.main, _ship.transform);
+        return new ViewportCheckLimits(Camera.main, _shipMediator.transform);
     }
 }
