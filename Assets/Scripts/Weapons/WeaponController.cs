@@ -6,17 +6,22 @@ using UnityEngine;
 public class WeaponController : MonoBehaviour
 {
     [SerializeField] private float _fireRateInSeconds;
-    [SerializeField] private Projectile[] _projectilePrefabs;
+    [SerializeField] private ProjectileConfiguration _projectileConfiguration;
+    [SerializeField] private ProjectileId _projectileId1;
+    [SerializeField] private ProjectileId _projectileId2;
     [SerializeField] private Transform _projectileSpawnPos;
-    
-    private IShip _ship;
 
-    private string _activeProjectileID;
+    private IShip _ship;
+    private ProjectileFactory _projectileFactory;
+
+    private ProjectileId _activeProjectileID;
     private float lastTimeShooted;
-    
+
     public void Configure(IShip ship)
     {
         _ship = ship;
+        _activeProjectileID = _projectileId2;
+        _projectileFactory = new ProjectileFactory(Instantiate(_projectileConfiguration));
     }
 
     public void TryShoot()
@@ -29,11 +34,12 @@ public class WeaponController : MonoBehaviour
 
         Shoot();
     }
-    
+
     private void Shoot()
     {
         lastTimeShooted = Time.time;
-        var projectile = _projectilePrefabs.First(projectile => projectile.ID.Equals(_activeProjectileID));
-        Instantiate(projectile, _projectileSpawnPos.position, _projectileSpawnPos.rotation);
+        
+        Projectile projectile = _projectileFactory.Create(_activeProjectileID.Value, _projectileSpawnPos.position,
+            _projectileSpawnPos.rotation);
     }
 }
