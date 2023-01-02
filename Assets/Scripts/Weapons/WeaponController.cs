@@ -31,15 +31,13 @@ public class WeaponController : MonoBehaviour
         {
             Shoot();
         }
-
-        Shoot();
     }
 
     private void Shoot()
     {
         lastTimeShooted = Time.time;
         
-        Projectile projectile = _projectileFactory.Create(_activeProjectileID.Value, _projectileSpawnPos.position,
-            _projectileSpawnPos.rotation);
+        BaseProjectile projectile = _projectileFactory.Create(_activeProjectileID.Value, _projectileSpawnPos.localPosition,
+            _projectileSpawnPos.localRotation);
     }
 }

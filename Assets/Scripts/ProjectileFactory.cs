@@ -11,14 +11,14 @@ public class ProjectileFactory
         _projectileConfiguration = projectileConfiguration;
     }
     
-    public Projectile Create(string id, Vector2 position, Quaternion rotation)
+    public BaseProjectile Create(string id, Vector2 position, Quaternion rotation)
     {
-        Projectile projectilePrefab = _projectileConfiguration.GetProjectileById(id);
+        BaseProjectile linealProjectilePrefab = _projectileConfiguration.GetProjectileById(id);
         
-        Projectile projectile = Object.Instantiate(projectilePrefab);
+        BaseProjectile linealProjectile = Object.Instantiate(linealProjectilePrefab);
         
-        projectile.transform.position = position;
-        projectile.transform.rotation = rotation;
-        return projectile;
+        linealProjectile.transform.position = position;
+        linealProjectile.transform.rotation = rotation;
+        return linealProjectile;
     }
 }

@@ -7,19 +7,19 @@ using UnityEngine.Assertions;
 [CreateAssetMenu(fileName = "Projectile Configuration", menuName = "Factory/Projectile Configuration")]
 public class ProjectileConfiguration : ScriptableObject
 {
-    [SerializeField] private Projectile[] _projectilePrefabs;
-    private Dictionary<string, Projectile> _idToProjectilePrefab;
+    [SerializeField] private BaseProjectile[] _projectilePrefabs;
+    private Dictionary<string, BaseProjectile> _idToProjectilePrefab;
 
     private void Awake()
     {
-        _idToProjectilePrefab = new Dictionary<string, Projectile>();
+        _idToProjectilePrefab = new Dictionary<string, BaseProjectile>();
         foreach (var projectile in _projectilePrefabs)
         {
             _idToProjectilePrefab.Add(projectile.ID, projectile);
         }
     }
     
-    public Projectile GetProjectileById(string id)
+    public BaseProjectile GetProjectileById(string id)
     {
         Assert.IsTrue(_idToProjectilePrefab.ContainsKey(id), $"Projectile with id {id} not found");
         
