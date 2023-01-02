@@ -15,8 +15,6 @@ public class ShipMediator : MonoBehaviour, IShip
 
     private IInput _input;
 
-
-
     private void Awake()
     {
         _camera = Camera.main;

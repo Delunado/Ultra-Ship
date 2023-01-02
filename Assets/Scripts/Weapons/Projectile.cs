@@ -6,8 +6,8 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Projectile : MonoBehaviour
 {
-    [SerializeField] private string _id;
-    public string ID => _id;
+    [SerializeField] private ProjectileId _id;
+    public string ID => _id.Value;
     
     [SerializeField] private float _speed;
 
