@@ -5,7 +5,7 @@ using UnityEngine;
 public class IAInputAdapter : IInput
 {
     private readonly ShipMediator _shipMediator;
-    private int _currentDirectionX;
+    private float _currentDirectionX;
 
     public IAInputAdapter(ShipMediator shipMediator)
     {
@@ -16,12 +16,16 @@ public class IAInputAdapter : IInput
     public Vector2 GetDirection()
     {
         var viewportPoint = Camera.main.WorldToViewportPoint(_shipMediator.transform.position);
-        if (viewportPoint.x < 0.05f || viewportPoint.x > 0.95f)
+        if (viewportPoint.x < 0.05f)
         {
-            _currentDirectionX *= -1;
+            _currentDirectionX = _shipMediator.transform.right.x;
         }
-        
-        return new Vector2(_currentDirectionX, 0.0f);
+        else if (viewportPoint.x > 0.95f)
+        {
+            _currentDirectionX = -_shipMediator.transform.right.x;
+        }
+
+        return new Vector2(_currentDirectionX, 1.0f);
     }
 
     public bool IsFireActionPressed()

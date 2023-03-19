@@ -236,7 +236,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5512e0ce0dc26914895173b49f3c8dc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useIA: 0
+  useIA: 1
   checkLimitsFromPosition: 0
 --- !u!4 &1107976488
 Transform:

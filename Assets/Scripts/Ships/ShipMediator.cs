@@ -11,6 +11,9 @@ public class ShipMediator : MonoBehaviour, IShip
     [SerializeField] private MovementController movementController;
     [SerializeField] private WeaponController weaponController;
 
+    [SerializeField] private ShipID shipID;
+    public ShipID ID => shipID;
+
     private Camera _camera;
 
     private IInput _input;
