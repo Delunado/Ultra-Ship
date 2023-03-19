@@ -23,11 +23,11 @@ public class ShipMediator : MonoBehaviour, IShip
         _camera = Camera.main;
     }
 
-    public void Configure(IInput input, ICheckLimits limits)
+    public void Configure(IInput input, ICheckLimits limits, Vector2 speed, ProjectileId projectileId, float fireRate)
     {
         _input = input;
-        movementController.Configure(this, limits);
-        weaponController.Configure(this);
+        movementController.Configure(this, limits, speed);
+        weaponController.Configure(this, projectileId, fireRate);
     }
 
     void Update()

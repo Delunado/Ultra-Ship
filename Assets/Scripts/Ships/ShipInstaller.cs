@@ -10,13 +10,16 @@ public class ShipInstaller : MonoBehaviour
     [SerializeField] private bool useIA;
     [SerializeField] private bool checkLimitsFromPosition;
 
+    [SerializeField] private ShipToSpawnConfiguration shipToSpawnConfiguration;
+
     private void Awake()
     {
         _shipMediator = FindObjectOfType<ShipMediator>();
 
         if (_shipMediator != null)
         {
-            _shipMediator.Configure(GetInput(), GetCheckLimitsStrategy());
+            _shipMediator.Configure(GetInput(), GetCheckLimitsStrategy(), shipToSpawnConfiguration.Speed,
+                shipToSpawnConfiguration.ProjectileId, shipToSpawnConfiguration.FireRate);
         }
         else
         {
@@ -28,7 +31,7 @@ public class ShipInstaller : MonoBehaviour
     {
         if (useIA)
             return new IAInputAdapter(_shipMediator);
-        
+
         return new PCInputAdapter();
     }
 
@@ -38,7 +41,7 @@ public class ShipInstaller : MonoBehaviour
         {
             return new InitialPositionCheckLimits(_shipMediator.transform, 7.0f);
         }
-        
+
         return new ViewportCheckLimits(Camera.main, _shipMediator.transform);
     }
 }

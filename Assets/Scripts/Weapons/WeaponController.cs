@@ -17,10 +17,13 @@ public class WeaponController : MonoBehaviour
     private ProjectileId _activeProjectileID;
     private float lastTimeShooted;
 
-    public void Configure(IShip ship)
+    public void Configure(IShip ship, ProjectileId projectileId, float fireRate)
     {
         _ship = ship;
-        _activeProjectileID = _projectileId2;
+        
+        _fireRateInSeconds = fireRate;
+        _activeProjectileID = projectileId;
+        
         _projectileFactory = new ProjectileFactory(Instantiate(_projectileConfiguration));
     }
 
@@ -37,7 +40,7 @@ public class WeaponController : MonoBehaviour
     {
         lastTimeShooted = Time.time;
         
-        BaseProjectile projectile = _projectileFactory.Create(_activeProjectileID.Value, _projectileSpawnPos.localPosition,
-            _projectileSpawnPos.localRotation);
+        BaseProjectile projectile = _projectileFactory.Create(_activeProjectileID.Value, _projectileSpawnPos.position,
+            _projectileSpawnPos.rotation);
     }
 }
